@@ -11,7 +11,6 @@ export default createReducer(new InitState, {
     return state.set('siteInfo', data)
   },
   [`${type.GET_LOGIN_ITEMS}_SUCCESS`]: (state: any, data: any) => {
-    console.log(data)
     return state.set('data', data)
   },
   [`${type.GET_VLOGIN}_SUCCESS`]: (state: any, data: any) => {
