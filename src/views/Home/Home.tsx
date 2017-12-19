@@ -27,23 +27,37 @@ export default class HomeView extends React.Component<IhomeAction, IHomeState> {
     this.state = {
       redirect: false,
       userValue: '',
-      passwordValue: ''
+      passwordValue: '',
+      showInput: 'none'
     }
   }
 
   componentWillMount () {
     this.props.getVlogin()
+    // Toast.loading('加载中...', 30, () => {
+    //   console.log('Load complete !!!')
+    // })
   }
 
   componentWillReceiveProps (nextProps: IhomeAction) {
+    // Toast.hide()
+
     if (nextProps.home.vLogin) {
-      console.log('已经登录')
-    }
-    if (!!nextProps.home.data.status) {
+      this.vlogin()
+    } else {
       this.setState({
-        redirect: true
+        showInput: ''
       })
     }
+    if (!!nextProps.home.data.status) {
+      this.vlogin()
+    }
+  }
+
+  vlogin () {
+    this.setState({
+      redirect: true
+    })
   }
 
   onChange (type: any, value: String): void {
@@ -58,10 +72,11 @@ export default class HomeView extends React.Component<IhomeAction, IHomeState> {
 
   render () {
     if (this.state.redirect) {
-      return <Redirect push to="/about" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
+      return <Redirect push to="/list" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
     }
     return (
       <div>
+        <div style={{display: this.state.showInput}}>
         <List renderHeader={() => '用户登录'}>
           <InputItem
             value={this.state.userValue}
@@ -80,6 +95,7 @@ export default class HomeView extends React.Component<IhomeAction, IHomeState> {
         <WingBlank>
          <Button type="primary" onClick={this.getData.bind(this)}>登 录</Button>
         </WingBlank>
+        </div>
       </div>
     )
   }

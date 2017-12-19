@@ -1,7 +1,7 @@
 export interface Ihome {
   name?: string
   siteInfo?: string
-  vLogin?: boolean
+  vLogin?: boolean | number
   data?: any
 }
 
@@ -16,4 +16,5 @@ export interface IHomeState {
   userValue?: string
   passwordValue?: string,
   redirect?: boolean
+  showInput?: string
 }

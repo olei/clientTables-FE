@@ -20,6 +20,6 @@ export const getData = (userName: string, password: string) => ({
 export const getVlogin = () => ({
   type: type.GET_VLOGIN,
   payload: {
-    promise: axios.get(`/vLogin`)
+    promise: axios.get(`http://localhost:8088/vLogin`)
   }
 })
