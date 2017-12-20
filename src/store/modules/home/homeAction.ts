@@ -13,13 +13,13 @@ export const homeAction = (str: string): any => ({
 export const getData = (userName: string, password: string) => ({
   type: type.GET_LOGIN_ITEMS,
   payload: {
-    promise: axios.post(`/onLogin`, `userName=${userName}&password=${password}`)
+    promise: axios.post(`http://10.30.30.16:8088/onLogin`, `userName=${userName}&password=${password}`)
   }
 })
 
 export const getVlogin = () => ({
   type: type.GET_VLOGIN,
   payload: {
-    promise: axios.get(`http://localhost:8088/vLogin`)
+    promise: axios.get(`http://10.30.30.16:8088/vLogin`)
   }
 })
