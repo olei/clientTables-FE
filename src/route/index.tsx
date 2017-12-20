@@ -8,11 +8,13 @@ export interface RouterProps {
 
 import HomeView from '../views/Home/Home'
 import ListView from '../views/List/List'
+import addView from '../views/addClient/addClient'
 import NotFound from '../views/NotFound/NotFound'
 
 const routes = <Switch>
   <Route exact path="/" component={HomeView}></Route>
   <Route path="/list" component={ListView}></Route>
+  <Route path="/add/:id" component={addView}></Route>
   <Route path="/about" component={NotFound}></Route>
 </Switch>
 

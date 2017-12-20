@@ -6,7 +6,7 @@ import { Link, Redirect } from 'react-router-dom'
 import Action from '../../store/actions'
 import { IlistAction, IListState } from '../../interface'
 
-import { List, SearchBar } from 'antd-mobile'
+import { List, SearchBar, Button } from 'antd-mobile'
 import 'antd-mobile/lib/list/style/index.css'
 import 'antd-mobile/lib/search-bar/style/index.css'
 import './List.less'
@@ -24,6 +24,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
   constructor (props: IlistAction) {
     super(props)
     this.state = {
+      redirect: false,
       limit: 25,
       offset: 0,
       value: '',
@@ -45,9 +46,20 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     this.setState({
       value: val
     })
+    this.props.getSearchData(val)
+    if (!val) this.props.getListData(this.state.limit, this.state.offset)
+  }
+
+  add () {
+    this.setState({
+      redirect: true
+    })
   }
 
   render () {
+    if (this.state.redirect) {
+      return <Redirect push to="/add/addClient" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
+    }
     return (
       <div>
         <SearchBar
@@ -61,7 +73,8 @@ export default class ListView extends React.Component<IlistAction, IListState> {
         onCancel = {() => console.log('onCancel')}
         onChange = {this.onChange.bind(this)}
         />
-        <List renderHeader={() => '客户列表 (共 300 人)'} className="my-list">
+        <Button type="primary" inline size="small" onClick={this.add.bind(this)}>添加</Button>
+        <List renderHeader={() => '客户列表'} className="my-list">
           {this.state.data.map((item: any, index: number) => {
             return (
               <Link key={item.id} to={{pathname: `/about`}}>

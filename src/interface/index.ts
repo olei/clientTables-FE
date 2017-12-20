@@ -24,12 +24,21 @@ export interface IHomeState {
 // list interface
 export interface IlistAction {
   getListData?: (l: number, o: number) => void
+  getSearchData?: (k: string) => void
   list: any
 }
 
 export interface IListState {
+  redirect: boolean
   data: any
   value: string
   limit: number
   offset: number
+}
+
+export interface IaddClient {
+  userValue: string
+  phone: string
+  idCard: string
+  query: any
 }

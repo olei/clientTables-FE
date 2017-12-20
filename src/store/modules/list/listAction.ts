@@ -9,6 +9,13 @@ const type = types as any
 export const getListData = (limit: number, offset: number) => ({
   type: type.GET_LIST_ITEMS,
   payload: {
-    promise: axios.get(`http://10.30.30.16:8088/clientList?limit=${limit}&offset=${offset}`)
+    promise: axios.get(`http://localhost:8088/clientList?limit=${limit}&offset=${offset}`)
+  }
+})
+
+export const getSearchData = (key: string) => ({
+  type: type.GET_SEARCH_LIST_ITEMS,
+  payload: {
+    promise: axios.get(`http://localhost:8088/search?key=${key}`)
   }
 })

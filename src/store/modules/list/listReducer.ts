@@ -9,5 +9,8 @@ const type = types as any
 export default createReducer(new InitState, {
   [`${type.GET_LIST_ITEMS}_SUCCESS`]: (state: any, data: any) => {
     return state.set('data', data)
+  },
+  [`${type.GET_SEARCH_LIST_ITEMS}_SUCCESS`]: (state: any, data: any) => {
+    return state.set('data', data)
   }
 })
