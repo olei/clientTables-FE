@@ -57,9 +57,20 @@ export default class ListView extends React.Component<IlistAction, IListState> {
   }
 
   render () {
+    // if (this.props.list.data && !this.props.list.data.status) {
+    //   return <Redirect push to="/" />
+    // }
     if (this.state.redirect) {
       return <Redirect push to="/add/addClient" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
     }
+    let data = this.state.data
+    let list = data && data.length ? data.map((item: any, index: number) => {
+      return (
+        <Link key={item.id} to={{pathname: `/about`}}>
+          <Item extra={item.phone} arrow="horizontal" onClick={() => { console.log('show') }}>{ item.name }</Item>
+        </Link>
+      )
+    }) : ''
     return (
       <div>
         <SearchBar
@@ -75,14 +86,9 @@ export default class ListView extends React.Component<IlistAction, IListState> {
         />
         <Button type="primary" inline size="small" onClick={this.add.bind(this)}>添加</Button>
         <List renderHeader={() => '客户列表'} className="my-list">
-          {this.state.data.map((item: any, index: number) => {
-            return (
-              <Link key={item.id} to={{pathname: `/about`}}>
-                <Item extra={item.phone} arrow="horizontal" onClick={() => { console.log('show') }}>{ item.name }</Item>
-              </Link>
-            )
-          })}
+          { list }
         </List>
+        <div className="move">没有更多数据</div>
       </div>
     )
   }
