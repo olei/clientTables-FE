@@ -32,11 +32,14 @@ export interface IListState {
   redirect: boolean
   data: any
   value: string
+  total: string
   limit: number
   offset: number
 }
 
 export interface IaddClient {
+  id: number | null
+  buttType: string
   userValue: string
   phone: string
   idCard: string

@@ -26,10 +26,26 @@ export default class ListView extends React.Component<IlistAction, IaddClient> {
   constructor (props: IlistAction) {
     super(props)
     this.state = {
+      id: null,
       userValue: '',
       phone: '',
       idCard: '',
+      buttType: '提 交',
       query: /\/(\w|\d)+$/ig.exec(window.location.pathname)[0].slice(1)
+    }
+  }
+
+  componentDidMount () {
+    if (this.state.query && this.state.query !== 'addClient') {
+      this.setState({
+        id: parseInt(this.state.query),
+        buttType: '修 改'
+      })
+    } else {
+      this.setState({
+        id: parseInt(this.state.query),
+        buttType: '提 交'
+      })
     }
   }
 
@@ -67,7 +83,10 @@ export default class ListView extends React.Component<IlistAction, IaddClient> {
           >身份证</InputItem>
         </List>
         <WingBlank>
-         <Button type="primary" onClick={this.sendData.bind(this)}>登 录</Button>
+         <Button type="primary" onClick={this.sendData.bind(this)}>{ this.state.buttType }</Button><WhiteSpace />
+         {(() => {
+           if (this.state.id) return <Button type="warning">删除</Button>
+         })()}
         </WingBlank>
       </div>
     )

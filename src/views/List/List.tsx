@@ -25,6 +25,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     super(props)
     this.state = {
       redirect: false,
+      total: '--',
       limit: 25,
       offset: 0,
       value: '',
@@ -38,7 +39,8 @@ export default class ListView extends React.Component<IlistAction, IListState> {
 
   componentWillReceiveProps (nextProps: IlistAction) {
     this.setState({
-      data: nextProps.list.data.objects
+      data: nextProps.list.data.objects,
+      total: nextProps.list.data.total || '--'
     })
   }
 
@@ -66,7 +68,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     let data = this.state.data
     let list = data && data.length ? data.map((item: any, index: number) => {
       return (
-        <Link key={item.id} to={{pathname: `/about`}}>
+        <Link key={item.id} to={{pathname: `/add/${item.id}`}}>
           <Item extra={item.phone} arrow="horizontal" onClick={() => { console.log('show') }}>{ item.name }</Item>
         </Link>
       )
@@ -85,7 +87,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
         onChange = {this.onChange.bind(this)}
         />
         <Button type="primary" inline size="small" onClick={this.add.bind(this)}>添加</Button>
-        <List renderHeader={() => '客户列表'} className="my-list">
+        <List renderHeader={() => `客户列表 共${this.state.total}条结果`} className="my-list">
           { list }
         </List>
         <div className="move">没有更多数据</div>
