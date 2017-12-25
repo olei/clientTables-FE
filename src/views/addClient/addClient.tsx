@@ -108,7 +108,7 @@ export default class ListView extends React.Component<IuserInfoProps, IaddClient
     this.setState({
       ctrlType: 'editor'
     })
-    this.props.createUserData(this.state.userValue, this.state.idCard, this.state.phone, this.state.remarks)
+    this.props.createUserData(this.state.userValue, this.state.idCard, this.state.phone.replace(/\s/ig, ''), this.state.remarks)
   }
 
   delClient () {
@@ -116,7 +116,7 @@ export default class ListView extends React.Component<IuserInfoProps, IaddClient
   }
 
   putClient () {
-    this.props.putUserData(parseInt(this.state.query), this.state.userValue, this.state.idCard, this.state.phone, this.state.remarks)
+    this.props.putUserData(parseInt(this.state.query), this.state.userValue, this.state.idCard, this.state.phone.replace(/\s/ig, ''), this.state.remarks)
   }
 
   onChange (type: any, value: String): void {
