@@ -5,5 +5,9 @@ export default keyMirror({
   GET_LOGIN_ITEMS: null,
   GET_VLOGIN: null,
   GET_LIST_ITEMS: null,
-  GET_SEARCH_LIST_ITEMS: null
+  GET_SEARCH_LIST_ITEMS: null,
+  GET_USER_INFO: null,
+  PUT_USER_INFO: null,
+  DELELT_USER_INFO: null,
+  CREATE_USER_INFO: null
 })

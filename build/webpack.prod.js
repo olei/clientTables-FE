@@ -48,6 +48,7 @@ const config = merge(webpackConfig, {
     }),
     // css文件生成
     new ExtractTextPlugin(assetsPath('css/[name].[contenthash].css')),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     // 模板文件生成
     new HtmlWebpackPlugin({
       filename: './index.html',

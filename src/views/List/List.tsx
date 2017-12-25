@@ -12,7 +12,6 @@ import 'antd-mobile/lib/search-bar/style/index.css'
 import './List.less'
 
 const Item = List.Item
-const Brief = Item.Brief
 
 @connect(
   state => ({...state}),
@@ -68,7 +67,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     let data = this.state.data
     let list = data && data.length ? data.map((item: any, index: number) => {
       return (
-        <Link key={item.id} to={{pathname: `/add/${item.id}`}}>
+        <Link key={item.id} to={{pathname: `/userinfo/${item.id}`}}>
           <Item extra={item.tPhone} arrow="horizontal" onClick={() => { console.log('show') }}>{ index + 1 < 10 ? `0${index + 1}` :  index + 1 } { item.name }</Item>
         </Link>
       )
