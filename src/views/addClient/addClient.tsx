@@ -6,13 +6,14 @@ import { Link, Redirect } from 'react-router-dom'
 import Action from '../../store/actions'
 import { IlistAction, IaddClient } from '../../interface'
 
-import { List, InputItem, Toast, Button, WhiteSpace, WingBlank } from 'antd-mobile'
+import { List, InputItem, Toast, Button, WhiteSpace, WingBlank, TextareaItem } from 'antd-mobile'
 import 'antd-mobile/lib/list/style/index.css'
 import 'antd-mobile/lib/toast/style/index.css'
 import 'antd-mobile/lib/input-item/style/index.css'
 import 'antd-mobile/lib/button/style/index.css'
 import 'antd-mobile/lib/wing-blank/style/index.css'
 import 'antd-mobile/lib/white-space/style/index.css'
+import 'antd-mobile/lib/textarea-item/style/index.css'
 
 import './addClient.less'
 
@@ -81,6 +82,12 @@ export default class ListView extends React.Component<IlistAction, IaddClient> {
             onChange={this.onChange.bind(this, 'idCard')}
             value={this.state.idCard}
           >身份证</InputItem>
+        </List>
+        <List renderHeader={() => '备注'}>
+        <TextareaItem
+            rows={3}
+            placeholder="这里填写..."
+          />
         </List>
         <WingBlank>
          <Button type="primary" onClick={this.sendData.bind(this)}>{ this.state.buttType }</Button><WhiteSpace />

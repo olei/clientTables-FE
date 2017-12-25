@@ -69,7 +69,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     let list = data && data.length ? data.map((item: any, index: number) => {
       return (
         <Link key={item.id} to={{pathname: `/add/${item.id}`}}>
-          <Item extra={item.phone} arrow="horizontal" onClick={() => { console.log('show') }}>{ item.name }</Item>
+          <Item extra={item.tPhone} arrow="horizontal" onClick={() => { console.log('show') }}>{ index + 1 < 10 ? `0${index + 1}` :  index + 1 } { item.name }</Item>
         </Link>
       )
     }) : ''
