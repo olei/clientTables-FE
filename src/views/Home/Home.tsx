@@ -34,6 +34,7 @@ export default class HomeView extends React.Component<IhomeAction, IHomeState> {
 
   componentWillMount () {
     this.props.getVlogin()
+    this.props.home.vLogin && this.vlogin()
     // Toast.loading('加载中...', 30, () => {
     //   console.log('Load complete !!!')
     // })
@@ -51,6 +52,8 @@ export default class HomeView extends React.Component<IhomeAction, IHomeState> {
     }
     if (!!nextProps.home.data.status) {
       this.vlogin()
+    } else if (nextProps.home.data.message) {
+      alert(nextProps.home.data.message)
     }
   }
 
@@ -72,7 +75,7 @@ export default class HomeView extends React.Component<IhomeAction, IHomeState> {
 
   render () {
     if (this.state.redirect) {
-      return <Redirect push to="/list" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
+      return <Redirect push to="/list/0" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
     }
     return (
       <div>

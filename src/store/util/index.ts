@@ -2,7 +2,7 @@ export const createReducer = (initialState: any, reducerMap: any) => {
   return (state = initialState, action: any) => {
     const reducer = reducerMap[action.type]
     if (reducer && action.content) return reducer(state, action.content)
-    return reducer ? reducer(state, action.payload.data, action.params) : state
+    return reducer && action.payload ? reducer(state, action.payload.data, action.params) : state
   }
 }
 

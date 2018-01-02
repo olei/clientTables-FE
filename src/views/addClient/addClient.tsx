@@ -64,7 +64,7 @@ export default class ListView extends React.Component<IuserInfoProps, IaddClient
     const data = nextProps.user.data
     alert(data.message)
     if (data.status) {
-      this.state.ctrlType === 'editor' ? window.history.go(-1) : this.setState({
+      this.setState({
         goList: true
       })
     }
@@ -127,7 +127,7 @@ export default class ListView extends React.Component<IuserInfoProps, IaddClient
 
   render () {
     if (this.state.goList) {
-      return <Redirect push to="/list" />
+      return <Redirect push to="/list/1" />
     }
     return (
       <div>

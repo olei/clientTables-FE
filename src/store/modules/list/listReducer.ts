@@ -7,10 +7,18 @@ import InitState from './listInitState'
 const type = types as any
 
 export default createReducer(new InitState, {
-  [`${type.GET_LIST_ITEMS}_SUCCESS`]: (state: any, data: any) => {
+  [type.CLEAR_LIST_DATA]: (state: any, data: any) => {
     return state.set('data', data)
   },
-  [`${type.GET_SEARCH_LIST_ITEMS}_SUCCESS`]: (state: any, data: any) => {
+  [type.SET_SEARCH_KEY]: (state: any, data: any) => {
+    return state.set('search_key', data)
+  },
+  [`${type.GET_LIST_ITEMS}_SUCCESS`]: (state: any, data: any) => {
+    const arr = state.data
+    if (arr.objects) {
+      arr.objects.push(...data.objects)
+      data.objects = arr.objects
+    }
     return state.set('data', data)
   }
 })

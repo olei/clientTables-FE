@@ -19,33 +19,99 @@ const Item = List.Item
 )
 export default class ListView extends React.Component<IlistAction, IListState> {
   manualFocusInst: any
+  scrollEvent: () => void | null
 
   constructor (props: IlistAction) {
     super(props)
     this.state = {
       redirect: false,
+      loading: false,
+      loadText: '加载数据...',
       total: '--',
       limit: 25,
       offset: 0,
       value: '',
-      data: []
+      data: [],
+      query: /\/(\w|\d)+$/ig.exec(window.location.pathname)[0].slice(1)
     }
+    this.scrollEvent = null
   }
 
   componentDidMount() {
-    this.props.getListData(this.state.limit, this.state.offset)
+    this.setState({
+      loadText: '加载数据...',
+      value: this.props.list.search_key
+    })
+    if (this.state.query && !!parseInt(this.state.query) || (!this.props.list.data.objects || !this.props.list.data.objects.length)) {
+      this.setState({
+        loading: true
+      })
+      this.props.clearListData()
+      this.props.getListData(this.state.limit, this.state.offset)
+    } else {
+      this.setData(this.props)
+      this.setState({
+        offset: (Math.ceil(this.props.list.data.objects.length / this.state.limit) - 1) * this.state.limit
+      })
+      this.scrollEvent = this.bindScroll()
+    }
+  }
+  componentWillReceiveProps (nextProps: IlistAction) {
+    if (!nextProps.list.data.objects || nextProps.list.data.objects.length < this.state.offset) {
+      this.setLoadText('没有更多内容')
+      window.removeEventListener('scroll', this.scrollEvent)
+      this.scrollEvent = null
+    } else if (!this.scrollEvent) {
+      this.setLoadText('加载数据...')
+      this.scrollEvent = this.bindScroll()
+    }
+    this.setData(nextProps)
   }
 
-  componentWillReceiveProps (nextProps: IlistAction) {
+  componentWillUnmount () {
+    window.removeEventListener('scroll', this.scrollEvent)
+    this.scrollEvent = null
+  }
+
+  setLoadText (val: string) {
     this.setState({
-      data: nextProps.list.data.objects,
-      total: nextProps.list.data.total || '--'
+      loadText: val
     })
   }
 
-  onChange (val: any) {
+  setData (props: any) {
     this.setState({
-      value: val
+      loading: false,
+      data: props.list.data.objects,
+      total: props.list.data.total || '--'
+    })
+  }
+
+  bindScroll () {
+    const body = document.body
+    const de = document.documentElement
+    const that = this
+    window.addEventListener('scroll', sc, false)
+    function sc () {
+      if (that.state.loading) return
+      if (de.scrollTop === body.scrollHeight - de.clientHeight) {
+        const offset = that.state.offset + that.state.limit
+        that.props.getListData(that.state.limit, offset)
+        that.setState({
+          offset,
+          loading: true
+        })
+      }
+    }
+    return sc
+  }
+
+  onChange (val: any) {
+    this.props.clearListData()
+    this.props.setSearchKey(val)
+    this.setState({
+      value: val,
+      offset: 0
     })
     this.props.getSearchData(val)
     if (!val) this.props.getListData(this.state.limit, this.state.offset)
@@ -68,7 +134,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     let list = data && data.length ? data.map((item: any, index: number) => {
       return (
         <Link key={item.id} to={{pathname: `/userinfo/${item.id}`}}>
-          <Item extra={item.tPhone} arrow="horizontal" onClick={() => { console.log('show') }}>{ index + 1 < 10 ? `0${index + 1}` :  index + 1 } { item.name }</Item>
+          <Item extra={item.tPhone} arrow="horizontal" onClick={() => { console.log('show') }}><span className="blue">{ index + 1 < 10 ? `0${index + 1}` :  index + 1 }</span> { item.name }</Item>
         </Link>
       )
     }) : ''
@@ -89,7 +155,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
         <List renderHeader={() => `客户列表 共${this.state.total}条结果`} className="my-list">
           { list }
         </List>
-        <div className="move">没有更多数据</div>
+        <div className="move">{ this.state.loadText }</div>
       </div>
     )
   }

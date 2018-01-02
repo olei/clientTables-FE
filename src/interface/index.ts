@@ -26,11 +26,14 @@ export interface IHomeState {
 
 export interface IListState {
   redirect: boolean
+  loading: boolean
   data: any
+  loadText: string
   value: string
   total: string
   limit: number
   offset: number
+  query: any
 }
 
 export interface IuserInfoProps {
@@ -44,7 +47,10 @@ export interface IuserInfoProps {
 export interface IlistAction {
   getListData?: (l: number, o: number) => void
   getSearchData?: (k: string) => void
+  clearListData?: () => void
+  setSearchKey?: (k: string) => void
   list: any
+  search_key: string
 }
 
 export interface IuserInfoState {

@@ -14,7 +14,7 @@ import NotFound from '../views/NotFound/NotFound'
 
 const routes = <Switch>
   <Route exact path="/" component={HomeView}></Route>
-  <Route path="/list" component={ListView}></Route>
+  <Route path="/list/:type" component={ListView}></Route>
   <Route path="/userinfo/:id" component={userInfoView}></Route>
   <Route path="/add/:id" component={addView}></Route>
   <Route path="/about" component={NotFound}></Route>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import types from '../../types'
 import { Ihome } from '../../../interface'
+const W = window as any
 /**
  * Created by olei on 2017/12/30.
  */
@@ -13,13 +14,13 @@ export const homeAction = (str: string): any => ({
 export const getData = (userName: string, password: string) => ({
   type: type.GET_LOGIN_ITEMS,
   payload: {
-    promise: axios.post(`http://localhost:8088/onLogin`, `userName=${userName}&password=${password}`)
+    promise: axios.post(`${W.$config.debug}/onLogin`, `userName=${userName}&password=${password}`)
   }
 })
 
 export const getVlogin = () => ({
   type: type.GET_VLOGIN,
   payload: {
-    promise: axios.get(`http://localhost:8088/vLogin`)
+    promise: axios.get(`${W.$config.debug}/vLogin`)
   }
 })
