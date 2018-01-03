@@ -57,7 +57,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     }
   }
   componentWillReceiveProps (nextProps: IlistAction) {
-    if (!nextProps.list.data.objects || nextProps.list.data.objects.length < this.state.offset) {
+    if (!nextProps.list.data.objects || nextProps.list.data.objects.length % this.state.limit) {
       this.setLoadText('没有更多内容')
       window.removeEventListener('scroll', this.scrollEvent)
       this.scrollEvent = null
