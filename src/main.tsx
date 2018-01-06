@@ -8,6 +8,14 @@ import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
 
 import './assets/less/reset.less'
+import 'antd-mobile/lib/list/style/index.css'
+import 'antd-mobile/lib/toast/style/index.css'
+import 'antd-mobile/lib/input-item/style/index.css'
+import 'antd-mobile/lib/button/style/index.css'
+import 'antd-mobile/lib/wing-blank/style/index.css'
+import 'antd-mobile/lib/white-space/style/index.css'
+import 'antd-mobile/lib/search-bar/style/index.css'
+import 'antd-mobile/lib/modal/style/index.css'
 import './assets/less/index.less'
 
 let attachFastClick = require('fastclick')

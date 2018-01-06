@@ -7,8 +7,7 @@ import Action from '../../store/actions'
 import { IlistAction, IListState } from '../../interface'
 
 import { List, SearchBar, Button } from 'antd-mobile'
-import 'antd-mobile/lib/list/style/index.css'
-import 'antd-mobile/lib/search-bar/style/index.css'
+
 import './List.less'
 
 const Item = List.Item
@@ -53,18 +52,18 @@ export default class ListView extends React.Component<IlistAction, IListState> {
       this.setState({
         offset: (Math.ceil(this.props.list.data.objects.length / this.state.limit) - 1) * this.state.limit
       })
-      this.scrollEvent = this.bindScroll()
+      // this.scrollEvent = this.bindScroll()
     }
   }
   componentWillReceiveProps (nextProps: IlistAction) {
-    if (!nextProps.list.data.objects || nextProps.list.data.objects.length % this.state.limit) {
-      this.setLoadText('没有更多内容')
-      window.removeEventListener('scroll', this.scrollEvent)
-      this.scrollEvent = null
-    } else if (!this.scrollEvent) {
-      this.setLoadText('加载数据...')
-      this.scrollEvent = this.bindScroll()
-    }
+    // if (!nextProps.list.data.objects || nextProps.list.data.objects.length % this.state.limit) {
+    //   this.setLoadText('没有更多内容')
+    //   window.removeEventListener('scroll', this.scrollEvent)
+    //   this.scrollEvent = null
+    // } else if (!this.scrollEvent) {
+    //   this.setLoadText('加载数据...')
+    //   this.scrollEvent = this.bindScroll()
+    // }
     this.setData(nextProps)
   }
 
@@ -80,11 +79,20 @@ export default class ListView extends React.Component<IlistAction, IListState> {
   }
 
   setData (props: any) {
+    const data = props.list.data.objects
+    if (!data || data.length % this.state.limit) {
+      this.setLoadText('没有更多内容')
+      window.removeEventListener('scroll', this.scrollEvent)
+    } else {
+      this.setLoadText('加载数据...')
+      this.scrollEvent = this.bindScroll()
+    }
     this.setState({
       loading: false,
-      data: props.list.data.objects,
+      data,
       total: props.list.data.total || '--'
     })
+
   }
 
   bindScroll () {

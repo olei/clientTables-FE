@@ -6,12 +6,6 @@ import Action from '../../store/actions'
 import { IhomeAction, Ihome, IHomeState } from '../../interface'
 
 import { List, InputItem, Toast, Button, WhiteSpace, WingBlank } from 'antd-mobile'
-import 'antd-mobile/lib/list/style/index.css'
-import 'antd-mobile/lib/toast/style/index.css'
-import 'antd-mobile/lib/input-item/style/index.css'
-import 'antd-mobile/lib/button/style/index.css'
-import 'antd-mobile/lib/wing-blank/style/index.css'
-import 'antd-mobile/lib/white-space/style/index.css'
 
 import './Home.less'
 
