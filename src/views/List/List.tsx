@@ -102,7 +102,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     window.addEventListener('scroll', sc, false)
     function sc () {
       if (that.state.loading) return
-      if (de.scrollTop === body.scrollHeight - de.clientHeight) {
+      if (de.scrollTop >= body.scrollHeight - de.clientHeight - 30) {
         const offset = that.state.offset + that.state.limit
         that.props.getListData(that.state.limit, offset)
         that.setState({

@@ -14,7 +14,7 @@ import { List, InputItem, Toast, Button, WhiteSpace, WingBlank, TextareaItem, Mo
 // import 'antd-mobile/lib/wing-blank/style/index.css'
 // import 'antd-mobile/lib/white-space/style/index.css'
 // import 'antd-mobile/lib/textarea-item/style/index.css'
-import 'antd-mobile/lib/modal/style/index.css'
+// import 'antd-mobile/lib/modal/style/index.css'
 
 import './addClient.less'
 
