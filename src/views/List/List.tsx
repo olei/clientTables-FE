@@ -83,9 +83,10 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     if (!data || data.length % this.state.limit) {
       this.setLoadText('没有更多内容')
       window.removeEventListener('scroll', this.scrollEvent)
+      this.scrollEvent = null
     } else {
       this.setLoadText('加载数据...')
-      this.scrollEvent = this.bindScroll()
+      if (!this.scrollEvent) this.scrollEvent = this.bindScroll()
     }
     this.setState({
       loading: false,
@@ -102,7 +103,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     window.addEventListener('scroll', sc, false)
     function sc () {
       if (that.state.loading) return
-      if (de.scrollTop >= body.scrollHeight - de.clientHeight - 30) {
+      if ((body.scrollTop || de.scrollTop) >= body.scrollHeight - de.clientHeight - 30) {
         const offset = that.state.offset + that.state.limit
         that.props.getListData(that.state.limit, offset)
         that.setState({
