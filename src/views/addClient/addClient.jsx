@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import Action from '../../store/actions'
-import { IuserInfoProps, IaddClient } from '../../interface'
 
 import { List, InputItem, Toast, Button, WhiteSpace, WingBlank, TextareaItem, Modal } from 'antd-mobile'
 // import 'antd-mobile/lib/list/style/index.css'
@@ -22,12 +21,11 @@ const mAlert = Modal.alert
 
 @connect(
   state => ({...state}),
-  (dispatch: any) => bindActionCreators(Action, dispatch)
+  dispatch => bindActionCreators(Action, dispatch)
 )
-export default class ListView extends React.Component<IuserInfoProps, IaddClient> {
-  manualFocusInst: any
+export default class ListView extends React.Component {
 
-  constructor (props: IuserInfoProps) {
+  constructor (props) {
     super(props)
     this.state = {
       id: null,
@@ -61,7 +59,7 @@ export default class ListView extends React.Component<IuserInfoProps, IaddClient
     }
   }
 
-  componentWillReceiveProps (nextProps: IuserInfoProps) {
+  componentWillReceiveProps (nextProps) {
     const data = nextProps.user.data
     alert(data.message)
     if (data.status) {
@@ -120,8 +118,8 @@ export default class ListView extends React.Component<IuserInfoProps, IaddClient
     this.props.putUserData(parseInt(this.state.query), this.state.userValue, this.state.idCard, this.state.phone.replace(/\s/ig, ''), this.state.remarks)
   }
 
-  onChange (type: any, value: String): void {
-    let obj = {} as any
+  onChange (type, value) {
+    let obj = {}
     obj[type] = value
     this.setState(obj)
   }

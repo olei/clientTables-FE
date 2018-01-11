@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import Action from '../../store/actions'
-import { IuserInfoProps, IuserInfoState } from '../../interface'
 
 import { List, Toast, Button, WhiteSpace, WingBlank } from 'antd-mobile'
 // import 'antd-mobile/lib/list/style/index.css'
@@ -19,10 +18,10 @@ import './userInfo.less'
 
 @connect(
   state => ({...state}),
-  (dispatch: any) => bindActionCreators(Action, dispatch)
+  dispatch => bindActionCreators(Action, dispatch)
 )
-export default class ListView extends React.Component<IuserInfoProps, IuserInfoState> {
-  constructor (props: IuserInfoProps) {
+export default class ListView extends React.Component {
+  constructor (props) {
     super(props)
     this.state = {
       query: /\/(\w|\d)+$/ig.exec(window.location.pathname)[0].slice(1)
@@ -35,7 +34,7 @@ export default class ListView extends React.Component<IuserInfoProps, IuserInfoS
     // }
   }
 
-  componentWillReceiveProps (nextProps: IuserInfoProps) {
+  componentWillReceiveProps (nextProps) {
     const data = nextProps.user.data
     if (!data.status) {
       alert(data.message)

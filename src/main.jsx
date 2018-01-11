@@ -8,25 +8,25 @@ import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
 
 import './assets/less/reset.less'
-import 'antd-mobile/lib/list/style/index.css'
-import 'antd-mobile/lib/toast/style/index.css'
-import 'antd-mobile/lib/input-item/style/index.css'
-import 'antd-mobile/lib/button/style/index.css'
-import 'antd-mobile/lib/wing-blank/style/index.css'
-import 'antd-mobile/lib/white-space/style/index.css'
-import 'antd-mobile/lib/search-bar/style/index.css'
-import 'antd-mobile/lib/modal/style/index.css'
+// import 'antd-mobile/lib/list/style/index.css'
+// import 'antd-mobile/lib/toast/style/index.css'
+// import 'antd-mobile/lib/input-item/style/index.css'
+// import 'antd-mobile/lib/button/style/index.css'
+// import 'antd-mobile/lib/wing-blank/style/index.css'
+// import 'antd-mobile/lib/white-space/style/index.css'
+// import 'antd-mobile/lib/search-bar/style/index.css'
+// import 'antd-mobile/lib/modal/style/index.css'
 import './assets/less/index.less'
 
 let attachFastClick = require('fastclick')
 attachFastClick.attach(document.body)
 
-const target: HTMLElement = document.getElementById('app')
+const target = document.getElementById('app')
 
 class Root extends React.Component {
   render () {
     return (
-      <Provider store={store as any}>
+      <Provider store={store}>
         <AppRoute history={history} />
       </Provider>
     )

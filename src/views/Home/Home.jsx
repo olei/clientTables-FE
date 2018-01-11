@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import Action from '../../store/actions'
-import { IhomeAction, Ihome, IHomeState } from '../../interface'
 
 import { List, InputItem, Toast, Button, WhiteSpace, WingBlank } from 'antd-mobile'
 
@@ -11,12 +10,12 @@ import './Home.less'
 
 @connect(
   state => ({...state}),
-  (dispatch: any) => bindActionCreators(Action, dispatch)
+  dispatch => bindActionCreators(Action, dispatch)
 )
 
-export default class HomeView extends React.Component<IhomeAction, IHomeState> {
+export default class HomeView extends React.Component {
 
-  constructor (props: IhomeAction) {
+  constructor (props) {
     super(props)
     this.state = {
       redirect: false,
@@ -29,13 +28,9 @@ export default class HomeView extends React.Component<IhomeAction, IHomeState> {
   componentWillMount () {
     this.props.getVlogin()
     this.props.home.vLogin && this.vlogin()
-    // Toast.loading('加载中...', 30, () => {
-    //   console.log('Load complete !!!')
-    // })
   }
 
-  componentWillReceiveProps (nextProps: IhomeAction) {
-    // Toast.hide()
+  componentWillReceiveProps (nextProps) {
 
     if (nextProps.home.vLogin) {
       this.vlogin()
@@ -57,8 +52,8 @@ export default class HomeView extends React.Component<IhomeAction, IHomeState> {
     })
   }
 
-  onChange (type: any, value: String): void {
-    let obj = {} as any
+  onChange (type, value) {
+    let obj = {}
     obj[type] = value
     this.setState(obj)
   }

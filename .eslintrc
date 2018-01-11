@@ -1,0 +1,11 @@
+{
+  "env": {
+    "jasmine": true
+  },
+  "rules": {
+    "no-unused-vars": 0,
+    "no-extra-boolean-cast": 0,
+    "no-useless-call": 0
+  },
+  "import/no-unresolved": 0
+}

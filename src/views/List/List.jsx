@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import Action from '../../store/actions'
-import { IlistAction, IListState } from '../../interface'
 
 import { List, SearchBar, Button } from 'antd-mobile'
 
@@ -14,13 +13,11 @@ const Item = List.Item
 
 @connect(
   state => ({...state}),
-  (dispatch: any) => bindActionCreators(Action, dispatch)
+  dispatch => bindActionCreators(Action, dispatch)
 )
-export default class ListView extends React.Component<IlistAction, IListState> {
-  manualFocusInst: any
-  scrollEvent: () => void | null
+export default class ListView extends React.Component {
 
-  constructor (props: IlistAction) {
+  constructor (props) {
     super(props)
     this.state = {
       redirect: false,
@@ -52,18 +49,9 @@ export default class ListView extends React.Component<IlistAction, IListState> {
       this.setState({
         offset: (Math.ceil(this.props.list.data.objects.length / this.state.limit) - 1) * this.state.limit
       })
-      // this.scrollEvent = this.bindScroll()
     }
   }
-  componentWillReceiveProps (nextProps: IlistAction) {
-    // if (!nextProps.list.data.objects || nextProps.list.data.objects.length % this.state.limit) {
-    //   this.setLoadText('没有更多内容')
-    //   window.removeEventListener('scroll', this.scrollEvent)
-    //   this.scrollEvent = null
-    // } else if (!this.scrollEvent) {
-    //   this.setLoadText('加载数据...')
-    //   this.scrollEvent = this.bindScroll()
-    // }
+  componentWillReceiveProps (nextProps) {
     this.setData(nextProps)
   }
 
@@ -72,13 +60,13 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     this.scrollEvent = null
   }
 
-  setLoadText (val: string) {
+  setLoadText (val) {
     this.setState({
       loadText: val
     })
   }
 
-  setData (props: any) {
+  setData (props) {
     const data = props.list.data.objects
     if (!data || data.length % this.state.limit) {
       this.setLoadText('没有更多内容')
@@ -115,7 +103,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
     return sc
   }
 
-  onChange (val: any) {
+  onChange (val) {
     this.props.clearListData()
     this.props.setSearchKey(val)
     this.setState({
@@ -140,7 +128,7 @@ export default class ListView extends React.Component<IlistAction, IListState> {
       return <Redirect push to="/add/addClient" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
     }
     let data = this.state.data
-    let list = data && data.length ? data.map((item: any, index: number) => {
+    let list = data && data.length ? data.map((item, index) => {
       return (
         <Link key={item.id} to={{pathname: `/userinfo/${item.id}`}}>
           <Item extra={item.tPhone} arrow="horizontal" onClick={() => { console.log('show') }}><span className="blue">{ index + 1 < 10 ? `0${index + 1}` :  index + 1 }</span> { item.name }</Item>
@@ -153,8 +141,8 @@ export default class ListView extends React.Component<IlistAction, IListState> {
         placeholder="搜 索"
         ref = {ref => this.manualFocusInst = ref}
         value = {this.state.value}
-        onSubmit = {(value: any) => console.log(value, 'onSubmit')}
-        onClear = {(value: any) => console.log(value, 'onClear')}
+        onSubmit = {value => console.log(value, 'onSubmit')}
+        onClear = {value => console.log(value, 'onClear')}
         onFocus = {() => console.log('onFocus')}
         onBlur = {() => console.log('onBlur')}
         onCancel = {() => console.log('onCancel')}

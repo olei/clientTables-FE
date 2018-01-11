@@ -2,10 +2,6 @@ import * as React from 'react'
 // BrowserRouter h5 histore 路由
 import { BrowserRouter, HashRouter, Switch, Route, Router as Rt } from 'react-router-dom'
 
-export interface RouterProps {
-  history: any
-}
-
 import HomeView from '../views/Home/Home'
 import ListView from '../views/List/List'
 import userInfoView from '../views/userInfo/userInfo'
@@ -20,8 +16,8 @@ const routes = <Switch>
   <Route path="/about" component={NotFound}></Route>
 </Switch>
 
-export default class Router extends React.Component<RouterProps, any> {
-  constructor (props: any) {
+export default class Router extends React.Component {
+  constructor (props) {
     super(props)
   }
 

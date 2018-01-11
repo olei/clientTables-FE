@@ -1,11 +1,15 @@
 const webpack = require('webpack')
 const path = require('path')
+const fs = require('fs')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const chalk = require('chalk')
+const eslintFormatter = require('react-dev-utils/eslintFormatter')
+const appDirectory = fs.realpathSync(process.cwd())
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
 
 module.exports = {
   entry: {
-    app: ['./src/main.tsx']
+    app: ['./src/main.jsx']
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -32,7 +36,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias: {
       'COMPONENTS': path.resolve(__dirname, '../src/components')
     }
@@ -40,21 +44,36 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
-        use: 'ts-loader'
+        test: /\.(js|jsx)$/,
+        include: resolveApp('src'),
+        loader: require.resolve('babel-loader'),
+        options: {
+
+          // This is a feature of `babel-loader` for webpack (not Babel itself).
+          // It enables caching results in ./node_modules/.cache/babel-loader/
+          // directory for faster rebuilds.
+          plugins: [
+            "transform-decorators-legacy",
+            ['import', [{ libraryName: 'antd', style: true }]],  // import less
+          ],
+          cacheDirectory: true,
+        },
       },
       // {
-      //   test: /\.ts$/,
+      //   test: /\.(js|jsx)$/,
       //   enforce: 'pre',
-      //   loader: 'tslint-loader',
-      //   options: { /* Loader options go here */ }
+      //   use: [
+      //     {
+      //       options: {
+      //         formatter: eslintFormatter,
+      //         eslintPath: require.resolve('eslint'),
+
+      //       },
+      //       loader: require.resolve('eslint-loader'),
+      //     },
+      //   ],
+      //   include: resolveApp('src'),
       // },
-      {
-        enforce: 'pre',
-        test: /\.(js|jsx|ts|tsx)?$/,
-        loader: ['source-map-loader', 'tslint-loader']
-      },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         use: ['file-loader?limit=1000&name=files/[md5:hash:base64:10].[ext]']
