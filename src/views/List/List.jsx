@@ -16,7 +16,6 @@ const Item = List.Item
   dispatch => bindActionCreators(Action, dispatch)
 )
 export default class ListView extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -33,12 +32,12 @@ export default class ListView extends React.Component {
     this.scrollEvent = null
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.setState({
       loadText: '加载数据...',
       value: this.props.list.search_key
     })
-    if (this.state.query && !!parseInt(this.state.query) || (!this.props.list.data.objects || !this.props.list.data.objects.length)) {
+    if ((this.state.query && !!parseInt(this.state.query)) || (!this.props.list.data.objects || !this.props.list.data.objects.length)) {
       this.setState({
         loading: true
       })
@@ -81,7 +80,6 @@ export default class ListView extends React.Component {
       data,
       total: props.list.data.total || '--'
     })
-
   }
 
   bindScroll () {
@@ -121,32 +119,28 @@ export default class ListView extends React.Component {
   }
 
   render () {
-    // if (this.props.list.data && !this.props.list.data.status) {
-    //   return <Redirect push to="/" />
-    // }
     if (this.state.redirect) {
-      return <Redirect push to="/add/addClient" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
+      return <Redirect push to="/add/addClient" />
     }
-    let data = this.state.data
+    const data = this.state.data
     let list = data && data.length ? data.map((item, index) => {
       return (
         <Link key={item.id} to={{pathname: `/userinfo/${item.id}`}}>
-          <Item extra={item.tPhone} arrow="horizontal" onClick={() => { console.log('show') }}><span className="blue">{ index + 1 < 10 ? `0${index + 1}` :  index + 1 }</span> { item.name }</Item>
+          <Item extra={item.tPhone} arrow="horizontal" onClick={() => { console.log('show') }}><span className="blue">{ index + 1 < 10 ? `0${index + 1}` : index + 1 }</span> { item.name }</Item>
         </Link>
       )
     }) : ''
     return (
       <div>
         <SearchBar
-        placeholder="搜 索"
-        ref = {ref => this.manualFocusInst = ref}
-        value = {this.state.value}
-        onSubmit = {value => console.log(value, 'onSubmit')}
-        onClear = {value => console.log(value, 'onClear')}
-        onFocus = {() => console.log('onFocus')}
-        onBlur = {() => console.log('onBlur')}
-        onCancel = {() => console.log('onCancel')}
-        onChange = {this.onChange.bind(this)}
+          placeholder = "搜 索"
+          value = {this.state.value}
+          onSubmit = {value => console.log(value, 'onSubmit')}
+          onClear = {value => console.log(value, 'onClear')}
+          onFocus = {() => console.log('onFocus')}
+          onBlur = {() => console.log('onBlur')}
+          onCancel = {() => console.log('onCancel')}
+          onChange = {this.onChange.bind(this)}
         />
         <Button type="primary" inline size="small" onClick={this.add.bind(this)}>添加</Button>
         <List renderHeader={() => `客户列表 共${this.state.total}条结果`} className="my-list">

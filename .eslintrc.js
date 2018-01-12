@@ -16,6 +16,10 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    'no-unused-vars': 0,
+    "no-loop-func": 0,
+    'no-useless-constructor': 0,
+    'no-extra-boolean-cast': 0,
     'eol-last': 0,
     // allow paren-less arrow functions
     'arrow-parens': 0,

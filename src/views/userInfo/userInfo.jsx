@@ -1,3 +1,4 @@
+import './userInfo.less'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
@@ -6,15 +7,7 @@ import { Link, Redirect } from 'react-router-dom'
 import Action from '../../store/actions'
 
 import { List, Toast, Button, WhiteSpace, WingBlank } from 'antd-mobile'
-// import 'antd-mobile/lib/list/style/index.css'
-// import 'antd-mobile/lib/toast/style/index.css'
-// import 'antd-mobile/lib/button/style/index.css'
-// import 'antd-mobile/lib/wing-blank/style/index.css'
-// import 'antd-mobile/lib/white-space/style/index.css'
-
 const Item = List.Item
-
-import './userInfo.less'
 
 @connect(
   state => ({...state}),
@@ -30,7 +23,7 @@ export default class ListView extends React.Component {
 
   componentDidMount () {
     // if (this.props.user.data && !this.props.user.data.data) {
-      this.props.getUserData(this.state.query)
+    this.props.getUserData(this.state.query)
     // }
   }
 
@@ -49,7 +42,7 @@ export default class ListView extends React.Component {
     const phone = data && data.phone ? data.phone : ''
     const idCard = data && data.idCard ? data.idCard : ''
     const remarks = data && data.remarks ? data.remarks : ''
-    const create_time = data && data.create_time ? data.create_time : ''
+    const createTime = data && data.create_time ? data.create_time : ''
     return (
       <div>
         <List renderHeader={() => '用户信息'} className="my-list">
@@ -69,10 +62,10 @@ export default class ListView extends React.Component {
           }
         })()}
         <List renderHeader={() => '创建时间'} className="my-list">
-          <Item wrap>{ create_time }</Item>
+          <Item wrap>{ createTime }</Item>
         </List>
         <WingBlank>
-          <Link to={{pathname: `/add/${this.state.query}`}}>
+          <Link to = {{pathname: `/add/${this.state.query}`}}>
             <Button type="primary">编辑</Button>
           </Link>
         </WingBlank>

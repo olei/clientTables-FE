@@ -21,20 +21,9 @@ export default class Router extends React.Component {
     super(props)
   }
 
-  // render () {
-  //   return (
-  //     <div>
-  //       <Router history={history}>
-  //         <Route exact path="/" component={HomeView}></Route>
-  //         <Route path="/about" component={NotFound}></Route>
-  //       </Router>
-  //     </div>
-  //   )
-  // }
-  render() {
+  render () {
     return (
       <BrowserRouter children={ routes } />
     )
   }
-
 }

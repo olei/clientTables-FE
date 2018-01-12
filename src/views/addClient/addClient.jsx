@@ -6,14 +6,6 @@ import { Link, Redirect } from 'react-router-dom'
 import Action from '../../store/actions'
 
 import { List, InputItem, Toast, Button, WhiteSpace, WingBlank, TextareaItem, Modal } from 'antd-mobile'
-// import 'antd-mobile/lib/list/style/index.css'
-// import 'antd-mobile/lib/toast/style/index.css'
-// import 'antd-mobile/lib/input-item/style/index.css'
-// import 'antd-mobile/lib/button/style/index.css'
-// import 'antd-mobile/lib/wing-blank/style/index.css'
-// import 'antd-mobile/lib/white-space/style/index.css'
-// import 'antd-mobile/lib/textarea-item/style/index.css'
-// import 'antd-mobile/lib/modal/style/index.css'
 
 import './addClient.less'
 
@@ -24,7 +16,6 @@ const mAlert = Modal.alert
   dispatch => bindActionCreators(Action, dispatch)
 )
 export default class ListView extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -82,24 +73,30 @@ export default class ListView extends React.Component {
   confirmChange () {
     mAlert('修改', '确定执行这个操作吗?', [
       { text: '取消', onPress: () => console.log('cancel') },
-      { text: '确定', onPress: () => {
-        this.setState({
-          ctrlType: 'editor'
-        })
-        this.putClient()
-      } }
+      {
+        text: '确定',
+        onPress: () => {
+          this.setState({
+            ctrlType: 'editor'
+          })
+          this.putClient()
+        }
+      }
     ])
   }
 
   confirmDel () {
     mAlert('删除', '确定执行这个操作吗?', [
       { text: '取消', onPress: () => console.log('cancel') },
-      { text: '确定', onPress: () => {
-        this.setState({
-          ctrlType: 'del'
-        })
-        this.delClient()
-      } }
+      {
+        text: '确定',
+        onPress: () => {
+          this.setState({
+            ctrlType: 'del'
+          })
+          this.delClient()
+        }
+      }
     ])
   }
 
@@ -151,29 +148,29 @@ export default class ListView extends React.Component {
           >身份证</InputItem>
         </List>
         <List renderHeader={() => '备注'}>
-        <TextareaItem
+          <TextareaItem
             rows={3}
             placeholder="这里填写..."
             value={this.state.remarks}
             onChange={this.onChange.bind(this, 'remarks')}
           />
         </List>
-         {(() => {
-           if (this.state.id) {
-             return (
-               <WingBlank>
-                 <Button type="primary" onClick={this.confirmChange.bind(this)}>{ this.state.buttType }</Button><WhiteSpace />
-                 <Button type="warning" onClick={this.confirmDel.bind(this)}>删除</Button>
-               </WingBlank>
-             )
-           } else {
+        {(() => {
+          if (this.state.id) {
+            return (
+              <WingBlank>
+                <Button type="primary" onClick={this.confirmChange.bind(this)}>{ this.state.buttType }</Button><WhiteSpace />
+                <Button type="warning" onClick={this.confirmDel.bind(this)}>删除</Button>
+              </WingBlank>
+            )
+          } else {
             return (
               <WingBlank>
                 <Button type="primary" onClick={this.createClient.bind(this)}>{ this.state.buttType }</Button>
               </WingBlank>
             )
-           }
-         })()}
+          }
+        })()}
       </div>
     )
   }

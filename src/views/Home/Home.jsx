@@ -14,7 +14,6 @@ import './Home.less'
 )
 
 export default class HomeView extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -31,7 +30,6 @@ export default class HomeView extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-
     if (nextProps.home.vLogin) {
       this.vlogin()
     } else {
@@ -64,29 +62,29 @@ export default class HomeView extends React.Component {
 
   render () {
     if (this.state.redirect) {
-      return <Redirect push to="/list/0" />//or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数  
+      return <Redirect push to="/list/0" /> // or <Redirect push to="/sample?a=xxx&b=yyy" /> 传递更多参数
     }
     return (
       <div>
         <div style={{display: this.state.showInput}}>
-        <List renderHeader={() => '用户登录'}>
-          <InputItem
-            value={this.state.userValue}
-            placeholder="请输入用户名"
-            editable={true}
-            onChange={this.onChange.bind(this, 'userValue')}
-          >姓名</InputItem>
-          <InputItem
-            type="password"
-            placeholder="请输入密码"
-            onChange={this.onChange.bind(this, 'passwordValue')}
-            value={this.state.passwordValue}
-          >密码</InputItem>
-        </List>
-        <WhiteSpace />
-        <WingBlank>
-         <Button type="primary" onClick={this.getData.bind(this)}>登 录</Button>
-        </WingBlank>
+          <List renderHeader={() => '用户登录'}>
+            <InputItem
+              value={this.state.userValue}
+              placeholder="请输入用户名"
+              editable={true}
+              onChange={this.onChange.bind(this, 'userValue')}
+            >姓名</InputItem>
+            <InputItem
+              type="password"
+              placeholder="请输入密码"
+              onChange={this.onChange.bind(this, 'passwordValue')}
+              value={this.state.passwordValue}
+            >密码</InputItem>
+          </List>
+          <WhiteSpace />
+          <WingBlank>
+            <Button type="primary" onClick={this.getData.bind(this)}>登 录</Button>
+          </WingBlank>
         </div>
       </div>
     )

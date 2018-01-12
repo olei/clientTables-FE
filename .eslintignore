@@ -3,3 +3,4 @@ src/assets/*/*.js
 config/*.js
 src/store/*
 src/util/*
+node_modules/*.js

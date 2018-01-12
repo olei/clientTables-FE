@@ -2,10 +2,10 @@
   "env": {
     "jasmine": true
   },
+  "extends": "eslint:recommended",
   "rules": {
-    "no-unused-vars": 0,
-    "no-extra-boolean-cast": 0,
-    "no-useless-call": 0
-  },
-  "import/no-unresolved": 0
+    "no-unused-vars": "off",
+    "no-compare-neg-zero": "off",
+    "no-useless-escape": "off"
+  }
 }
